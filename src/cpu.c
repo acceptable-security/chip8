@@ -6,7 +6,7 @@
 
 chip8_op_t op_handlers[35] = {
 	{ .opcode = 0x0000, .opmask = 0xF000, .handler = chip8_op_todo, .name = "SYS" },
-	{ .opcode = 0x00E0, .opmask = 0xFFFF, .handler = chip8_op_todo, .name = "CLS" },
+	{ .opcode = 0x00E0, .opmask = 0xFFFF, .handler = chip8_op_disp_clear, .name = "CLS" },
 	{ .opcode = 0x00EE, .opmask = 0xFFFF, .handler = chip8_op_ret, .name = "RET" },
 	{ .opcode = 0x1000, .opmask = 0xF000, .handler = chip8_op_jump, .name = "JUMP" },
 	{ .opcode = 0x2000, .opmask = 0xF000, .handler = chip8_op_call, .name = "CALL" },

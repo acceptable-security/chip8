@@ -17,10 +17,10 @@ uint8_t chip8_fb_render_sprite(
 		uint8_t bin = data[i];
 
 		for ( uint8_t j = 0; j < 8; j++ ) {
-			uint8_t old = fb[CHIP8_FB_POS(i, j)];
+			uint8_t old = fb->pixels[CHIP8_FB_POS(i, j)];
 			uint8_t next = (bin >> j) & 1;
 
-			fb[CHIP8_FB_POS(i, j)] = next;
+			fb->pixels[CHIP8_FB_POS(i, j)] = next;
 
 			if ( old == 1 && next == 0 ) {
 				of = 1;

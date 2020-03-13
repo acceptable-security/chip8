@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+#include "fb.h"
+
 #define CHIP8_MEM_SIZE 0x1000
 #define CHIP8_REG_SIZE 16
 #define CHIP8_FLAG_OF  0xF
@@ -12,6 +14,7 @@ typedef struct {
 	uint8_t  sp;                       // Stack pointer
 	uint8_t display_timer;             // Display timer
 	uint8_t sound_timer;               // Sound timer  
+	chip8_fb_t* fb;                     // Framebuffer
 } chip8_state_t;
 
 typedef enum {
@@ -36,6 +39,7 @@ void chip8_write_short(chip8_state_t* state, uint16_t pos, uint16_t data);
 void chip8_next_op(chip8_state_t* state);
 
 chip8_status_t chip8_op_todo(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_disp_clear(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_ret(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_jump(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_jump(chip8_state_t* state, uint16_t opcode);

@@ -3,10 +3,14 @@
 
 #include "cpu.h"
 
-
 chip8_status_t chip8_op_todo(chip8_state_t* state, uint16_t opcode) {
 	printf("UNIMPLEMENTED %02x\n", opcode);
 	return CHIP_ST_ERR;
+}
+
+chip8_status_t chip8_op_disp_clear(chip8_state_t* state, uint16_t opcode) {
+	chip8_fb_clear(state->fb);
+	return CHIP_ST_NXT;
 }
 
 chip8_status_t chip8_op_ret(chip8_state_t* state, uint16_t opcode) {
