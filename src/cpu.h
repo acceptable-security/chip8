@@ -7,14 +7,15 @@
 #define CHIP8_FLAG_OF  0xF
 
 typedef struct {
-	uint8_t memory[CHIP8_MEM_SIZE];    // Memory
-	uint8_t registers[CHIP8_REG_SIZE]; // Registers
-	uint16_t ir;                       // The I register
-	uint16_t ip;                       // Instruction Pointer
-	uint8_t  sp;                       // Stack pointer
-	uint8_t display_timer;             // Display timer
-	uint8_t sound_timer;               // Sound timer  
-	chip8_fb_t* fb;                     // Framebuffer
+	uint8_t mem[CHIP8_MEM_SIZE]; // Memory
+	uint8_t reg[CHIP8_REG_SIZE]; // Registers
+	uint16_t ir;                 // The I register
+	uint16_t ip;                 // Instruction Pointer
+	uint8_t  sp;                 // Stack pointer
+	uint8_t display_timer;       // Display timer
+	uint8_t sound_timer;         // Sound timer  
+	chip8_fb_t* fb;              // Framebuffer
+	uint8_t kb;                  // Keyboard
 } chip8_state_t;
 
 typedef enum {

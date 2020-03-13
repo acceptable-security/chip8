@@ -43,12 +43,12 @@ chip8_op_t op_handlers[35] = {
 };
 
 uint16_t chip8_read_short(chip8_state_t* state, uint16_t pos) {
-	return (state->memory[pos] << 8) | state->memory[pos + 1];
+	return (state->mem[pos] << 8) | state->mem[pos + 1];
 }
 
 void chip8_write_short(chip8_state_t* state, uint16_t pos, uint16_t data) {
-	state->memory[pos] = (data >> 8) & 0xFF;
-	state->memory[pos + 1] = data & 0xFF;
+	state->mem[pos] = (data >> 8) & 0xFF;
+	state->mem[pos + 1] = data & 0xFF;
 }
 
 void chip8_next_op(chip8_state_t* state) {
