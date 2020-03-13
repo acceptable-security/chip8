@@ -5,9 +5,9 @@
 #include "cpu.h"
 
 chip8_op_t op_handlers[35] = {
-	{ .opcode = 0x0000, .opmask = 0xF000, .handler = chip8_op_todo, .name = "SYS" },
 	{ .opcode = 0x00E0, .opmask = 0xFFFF, .handler = chip8_op_disp_clear, .name = "CLS" },
 	{ .opcode = 0x00EE, .opmask = 0xFFFF, .handler = chip8_op_ret, .name = "RET" },
+	{ .opcode = 0x0000, .opmask = 0xF000, .handler = chip8_op_todo, .name = "SYS" },
 	{ .opcode = 0x1000, .opmask = 0xF000, .handler = chip8_op_jump, .name = "JUMP" },
 	{ .opcode = 0x2000, .opmask = 0xF000, .handler = chip8_op_call, .name = "CALL" },
 	{ .opcode = 0x3000, .opmask = 0xF000, .handler = chip8_op_skip_equal_const, .name = "SKIP.EQ" },
@@ -28,7 +28,7 @@ chip8_op_t op_handlers[35] = {
 	{ .opcode = 0xA000, .opmask = 0xF000, .handler = chip8_op_write_ir, .name = "LD" },
 	{ .opcode = 0xB000, .opmask = 0xF000, .handler = chip8_op_jump_ir, .name = "JP" },
 	{ .opcode = 0xC000, .opmask = 0xF000, .handler = chip8_op_rand, .name = "RND" },
-	{ .opcode = 0xD000, .opmask = 0xF000, .handler = chip8_op_todo, .name = "DRW" },
+	{ .opcode = 0xD000, .opmask = 0xF000, .handler = chip8_op_disp_sprite, .name = "DRW" },
 	{ .opcode = 0xE09E, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "SKP" },
 	{ .opcode = 0xE0A1, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "SKNP" },
 	{ .opcode = 0xF007, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "LD" },

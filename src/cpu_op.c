@@ -208,3 +208,14 @@ chip8_status_t chip8_op_rand(chip8_state_t* state, uint16_t opcode) {
 
 	return CHIP_ST_NXT;
 }
+
+chip8_status_t chip8_op_disp_sprite(chip8_state_t* state, uint16_t opcode) {
+	uint8_t x = state->registers[(opcode >> 8) & 0xF];
+	uint8_t y = state->registers[(opcode >> 4) & 0xF];
+	uint8_t n = state->registers[(opcode >> 0) & 0xF];
+	uint8_t* sprite = &state->registers[state->ir];
+
+	chip8_fb_render_sprite(state->fb, x, y, sprite, n);
+
+	return CHIP_ST_NXT;
+}

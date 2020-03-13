@@ -62,3 +62,4 @@ chip8_status_t chip8_op_skip_not_equal(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_write_ir(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_jump_ir(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_rand(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_disp_sprite(chip8_state_t* state, uint16_t opcode);
