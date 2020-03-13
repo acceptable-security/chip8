@@ -59,6 +59,9 @@ void chip8_next_op(chip8_state_t* state) {
 	chip8_timer_tick(&state->dispt);
 	chip8_timer_tick(&state->sndt);
 
+	// Read the keyboard
+	state->kb = state->kbread(false);
+
 	// Dispatch the found opcode
 	for ( int i = 0; i < sizeof(op_handlers) / sizeof(*op_handlers); i++ ) {
 		if ( (op & op_handlers[i].opmask) == op_handlers[i].opcode ) {

@@ -254,9 +254,8 @@ chip8_status_t chip8_op_get_delay_timer(chip8_state_t* state, uint16_t opcode) {
 }
 
 chip8_status_t chip8_op_wait_keyboard(chip8_state_t* state, uint16_t opcode) {
-	// TODO: ?
-	while ( state->kb == 0 ) {
-		usleep(100);
+	if ( state->kb == 0 ) {
+		state->kb = state->kbread(true);
 	}
 
 	state->reg[NIB3(opcode)] = state->kb;

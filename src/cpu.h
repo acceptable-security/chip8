@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdint.h>
 
 #include "fb.h"
@@ -8,6 +9,8 @@
 #define CHIP8_FLAG_OF  0xF
 #define CHIP8_FONT_SIZE 5
 
+typedef uint8_t (*chip8_kb_read_t)(bool block);
+
 typedef struct {
 	uint8_t mem[CHIP8_MEM_SIZE]; // Memory
 	uint8_t reg[CHIP8_REG_SIZE]; // Registers
@@ -17,7 +20,8 @@ typedef struct {
 	chip8_timer_t dispt;         // Display timer
 	chip8_timer_t sndt;          // Sound timer
 	chip8_fb_t* fb;              // Framebuffer
-	uint8_t kb;                  // Keyboard
+	uint8_t kb;                  // Keyboard state
+	chip8_kb_read_t kbread;      // Read keyboard callback
 	uint16_t fontloc;            // Location of hex fonts
 } chip8_state_t;
 
