@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "cpu.h"
 
@@ -219,3 +220,63 @@ chip8_status_t chip8_op_disp_sprite(chip8_state_t* state, uint16_t opcode) {
 
 	return CHIP_ST_NXT;
 }
+
+chip8_status_t chip8_op_skip_keyboard(chip8_state_t* state, uint16_t opcode) {
+	uint8_t val1 = state->reg[(opcode >> 8) & 0xF];
+
+	if ( val1 == state->kb ) {
+		state->ip++;
+		return CHIP_ST_SET;
+	}
+
+	return CHIP_ST_NXT;
+}
+
+chip8_status_t chip8_op_skip_not_keyboard(chip8_state_t* state, uint16_t opcode) {
+	uint8_t val1 = state->reg[(opcode >> 8) & 0xF];
+
+	if ( val1 != state->kb ) {
+		state->ip++;
+		return CHIP_ST_SET;
+	}
+
+	return CHIP_ST_NXT;
+}
+
+chip8_status_t chip8_op_get_delay_timer(chip8_state_t* state, uint16_t opcode) {
+	state->reg[(opcode >> 8) & 0xF] = state->dispt.tick;
+
+	return CHIP_ST_NXT;
+}
+
+chip8_status_t chip8_op_wait_keyboard(chip8_state_t* state, uint16_t opcode) {
+	while ( state->kb == 0 ) {
+		usleep(100);
+	}
+
+	state->reg[(opcode >> 8) & 0xF] = state->kb;
+
+	return CHIP_ST_NXT;
+}
+
+chip8_status_t chip8_op_set_delay_timer(chip8_state_t* state, uint16_t opcode) {
+	uint8_t timer = state->reg[(opcode >> 8) & 0xF];
+	chip8_timer_set(&state->dispt, timer);
+
+	return CHIP_ST_NXT;
+}
+
+chip8_status_t chip8_op_set_sound_timer(chip8_state_t* state, uint16_t opcode) {
+	uint8_t timer = state->reg[(opcode >> 8) & 0xF];
+	chip8_timer_set(&state->sndt, timer);
+
+	return CHIP_ST_NXT;
+}
+
+chip8_status_t chip8_op_add_ir(chip8_state_t* state, uint16_t opcode) {
+	uint8_t val1 = state->reg[(opcode >> 8) & 0xF];
+	state->ir += (uint16_t) val1;
+
+	return CHIP_ST_NXT;
+}
+

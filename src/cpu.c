@@ -29,8 +29,8 @@ chip8_op_t op_handlers[35] = {
 	{ .opcode = 0xB000, .opmask = 0xF000, .handler = chip8_op_jump_ir, .name = "JP" },
 	{ .opcode = 0xC000, .opmask = 0xF000, .handler = chip8_op_rand, .name = "RND" },
 	{ .opcode = 0xD000, .opmask = 0xF000, .handler = chip8_op_disp_sprite, .name = "DRW" },
-	{ .opcode = 0xE09E, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "SKP" },
-	{ .opcode = 0xE0A1, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "SKNP" },
+	{ .opcode = 0xE09E, .opmask = 0xF0FF, .handler = chip8_op_skip_keyboard, .name = "SKP" },
+	{ .opcode = 0xE0A1, .opmask = 0xF0FF, .handler = chip8_op_skip_not_keyboard, .name = "SKNP" },
 	{ .opcode = 0xF007, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "LD" },
 	{ .opcode = 0xF00A, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "LD" },
 	{ .opcode = 0xF015, .opmask = 0xF0FF, .handler = chip8_op_todo, .name = "LD" },
@@ -55,6 +55,11 @@ void chip8_next_op(chip8_state_t* state) {
 	uint16_t op = chip8_read_short(state, state->ip);
 	state->ip++;
 
+	// Increment timers
+	chip8_timer_tick(&state->dispt);
+	chip8_timer_tick(&state->sndt);
+
+	// Dispatch the found opcode
 	for ( int i = 0; i < sizeof(op_handlers) / sizeof(*op_handlers); i++ ) {
 		if ( (op & op_handlers[i].opmask) == op_handlers[i].opcode ) {
 			// printf("Found %s\n", op_handlers[i].name);

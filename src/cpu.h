@@ -1,6 +1,7 @@
 #include <stdint.h>
 
 #include "fb.h"
+#include "timer.h"
 
 #define CHIP8_MEM_SIZE 0x1000
 #define CHIP8_REG_SIZE 16
@@ -12,8 +13,8 @@ typedef struct {
 	uint16_t ir;                 // The I register
 	uint16_t ip;                 // Instruction Pointer
 	uint8_t  sp;                 // Stack pointer
-	uint8_t display_timer;       // Display timer
-	uint8_t sound_timer;         // Sound timer  
+	chip8_timer_t dispt;         // Display timer
+	chip8_timer_t sndt;          // Sound timer
 	chip8_fb_t* fb;              // Framebuffer
 	uint8_t kb;                  // Keyboard
 } chip8_state_t;
@@ -64,3 +65,10 @@ chip8_status_t chip8_op_write_ir(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_jump_ir(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_rand(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_disp_sprite(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_skip_keyboard(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_skip_not_keyboard(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_get_delay_timer(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_wait_keyboard(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_set_delay_timer(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_set_sound_timer(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_add_ir(chip8_state_t* state, uint16_t opcode);
