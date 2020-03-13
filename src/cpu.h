@@ -6,6 +6,7 @@
 #define CHIP8_MEM_SIZE 0x1000
 #define CHIP8_REG_SIZE 16
 #define CHIP8_FLAG_OF  0xF
+#define CHIP8_FONT_SIZE 5
 
 typedef struct {
 	uint8_t mem[CHIP8_MEM_SIZE]; // Memory
@@ -17,6 +18,7 @@ typedef struct {
 	chip8_timer_t sndt;          // Sound timer
 	chip8_fb_t* fb;              // Framebuffer
 	uint8_t kb;                  // Keyboard
+	uint16_t fontloc;            // Location of hex fonts
 } chip8_state_t;
 
 typedef enum {
@@ -72,3 +74,7 @@ chip8_status_t chip8_op_wait_keyboard(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_set_delay_timer(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_set_sound_timer(chip8_state_t* state, uint16_t opcode);
 chip8_status_t chip8_op_add_ir(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_get_font(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_load_bcd(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_load_lr(chip8_state_t* state, uint16_t opcode);
+chip8_status_t chip8_op_store_lr(chip8_state_t* state, uint16_t opcode);
